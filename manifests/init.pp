@@ -1,11 +1,15 @@
-# = Jenkins module
+# == class jenkins
 #
-# == Requires
+#  Manage Jenkins
 #
-# camptocamp/puppet-apt
+# === Params
+#
+# === Examples
 #
 # == Source
+#
 # https://wiki.jenkins-ci.org/display/JENKINS/Puppet
+#
 class jenkins(
     $http_port=8080, 
     $home="/var/lib/jenkins",
