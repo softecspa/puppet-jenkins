@@ -8,9 +8,9 @@
 #TODO: place workspace in the right path on aws
 class jenkins::install {
 
-  include apt_puppetlabs
+  include apt
 
-  apt_puppetlabs::source {'jenkins':
+  apt::source {'jenkins':
     location    => 'http://pkg.jenkins-ci.org/debian-stable',
     release     => '',
     repos       => 'binary/',
