@@ -28,7 +28,7 @@ class jenkins::install {
   }
 
   package { 'jenkins':
-    require => Apt_puppetlabs::Source['jenkins'],
+    require => Apt::Source['jenkins'],
   }
 
   package { 'openjdk-6-jdk': }
