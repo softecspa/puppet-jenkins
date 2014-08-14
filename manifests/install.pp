@@ -8,16 +8,17 @@
 #TODO: place workspace in the right path on aws
 class jenkins::install {
 
-  include apt
+  include apt_puppetlabs
 
-  apt::key { 'D50582E6':
-    source  => 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key',
+  apt_puppetlabs::source {'jenkins':
+    location    => 'http://pkg.jenkins-ci.org/debian-stable',
+    release     => '',
+    repos       => 'binary/',
+    include_src => false,
+    key         => 'D50582E6',
+    key_source  => 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key'
   }
 
-  apt::sources_list { 'jenkins':
-    content => 'deb http://pkg.jenkins-ci.org/debian-stable binary/',
-    require => Apt::Key['D50582E6'],
-  }
 
   include subversion
   include git
@@ -27,7 +28,7 @@ class jenkins::install {
   }
 
   package { 'jenkins':
-    require => Apt::Sources_list['jenkins'],
+    require => Apt_puppetlabs::Source['jenkins'],
   }
 
   package { 'openjdk-6-jdk': }
@@ -36,13 +37,13 @@ class jenkins::install {
 
   package { 'ant': }
 
-  apt::ppa { 'natecarlson/maven3': 
-    key => '3DD9F856',
-    mirror => true
+  softec_apt::ppa{'natecarlson/maven3':
+    key     => '3DD9F856',
+    mirror  => true
   }
 
   package { 'maven3':
-    require => Apt::Ppa['natecarlson/maven3'],
+    require => Softec_apt::Ppa['natecarlson/maven3'],
   }
 
 }
